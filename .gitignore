@@ -25,9 +25,7 @@
 *.app
 
 .vs/
-Debug/
-Release/
-RelWithDebugInfo/
+x64/
 *.vcxproj.user
 imgui.ini
 !packages/
