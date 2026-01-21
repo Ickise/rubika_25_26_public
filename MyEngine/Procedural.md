@@ -466,4 +466,75 @@ There are multiple way to do that step:
 
 Let's finish with the complex part : Propagation
 
-Once a cell is obsvered, you have to update the adjacent cells because based on the ruleset, some combinaisons might not be possibile anymore. In all directions, try to reduce the number of possibilities. If you succeed
+Once a cell is obsvered, you have to update the adjacent cells because based on the ruleset, some combinaisons might not be possibile anymore. In all directions, try to reduce the number of possibilities. If you succeed and reduce this number, this will have some consequences on this adjacent cells. So, you have to propagate the wave
+
+### Step 7
+
+Our algorithm is now finished and we have generated the all grid (or it fails so we have to rerun it). It is now time 
+to implement the `GenerateTexture` function. For each cell on our grid, color the corresponding pixel using the right color, previously determined while filling the different patterns used.
+
+## Threshold 6
+
+We have created a WFC algorithm that is based on static rules which are described directly in the executable. It is now time to switch to a data driven approach. Multiple ways are possible such as providing a file containing the ruleset but we will move another approach.
+
+The purpose of this threshold is to implement an algorithn to determine tile to use and rules to follow based on a set of images.
+
+### Step 0
+
+To make it simple and focus on the interestring part, let's add others functions to our `WaveFcuntionCollapse` class and modify it to handle thoses changes.
+
+```cpp
+bool LoadImage(unsigned patternSize, const std::filesystem::path& imgPath);
+```
+
+The first thing that this function must do is load the image in memory (it is not needed to create a texture, just the image is sufficient). Once this is done, we are going to split it in various patterns using the patternSize paremeter such as : 
+
+![gif](https://blog.ptidej.net/content/images/2024/07/steps.gif)
+
+in this example, patternSize = 2, and it will create this list of patterns (the rotation and reflection has been already been handled.)
+
+![img](https://blog.ptidej.net/content/images/2024/07/cdf8b5d2-aa6a-41f1-9d9e-482e9ac06053.png)
+
+Create a `Pattern` struct that will contain every pixels of a pattern in the right order and a `==` operator
+
+```cpp
+struct Pattern
+{
+    // Something to store the pixels
+
+    bool operator==(const Pattern& other) const;
+};
+```
+
+Store all unique patterns with their frequency (the number of time a pattern is found in the image) in your WFC class. It is way simpler to handle the rotation and reflection here. For each pixel you register, try to also register:
+- the same pattern that you have rotated (0, 90, 180, 270)
+- the symmetry on a `Pattern`
+
+For both those case, be carefull with the mathematics you used for rotating or reflecting a `Pattern`. It might be a good idea to :
+- Use very simple image at first (that you have creating yourself)
+- Create a simple debug to visualize your work
+
+You can find lots of image used for WFC algorithm [here](https://github.com/mxgmn/WaveFunctionCollapse).
+
+### Step 1
+
+Now, we have a complete list of `Pattern` to use, let's deduce the rules. To do it, nothing simpler. Try to match every `Pattern` you got with each others in every direction and check if the overlapping border is the same of not.
+
+For example, Pattern A and B can be placed next to each other if the right border of A is the same (same pixels) than B's left border.
+
+Using that compatibility system, you can create the list of rules that your algorithm must follow.
+
+### Step 2
+
+Modify the observe part of your algorithm to use the frequency of each possibilities instead of a uniform distribution between all possibilities.
+
+### Step 3
+
+Modify the `GenerateTexture` function to display each pattern instead of just one pixel.
+
+## Threshold 7
+
+We have a seen lots of algorithms to generate terrains, map... But the generation becomes nore powerful if we combine different algorithms. For instance
+- Use the `CellularAutomata` to draw the shape of a cave and a `Perlin noise` to determine altitude variation.
+- Use a `Perlin noise` to determine the temperature of a terrain and then, use a `WFC` to draw the world. Or the reversal, the `WFC` determines biomes and a `Perlin noise` complexifies the generation. 
+- ...
