@@ -1,6 +1,6 @@
 # Procedural generation
 
-The purpose of this lesson is to navigate through different procedural algorithms in order to generate terrains, textures, map...
+The purpose of this lesson is to navigate through different procedural algorithms in order to generate terrains, textures, maps...
 
 1. [Threshold 0 - Lesson](#threshold-0)
 2. [Threshold 1 - Manager](#threshold-1)
@@ -15,11 +15,11 @@ Lesson in class.
 
 ## Threshold 1
 
-The purpose of this threshold is to create a `RandomMgr` which will handle `RandomInstance` to generate thread safe and determinitic randon sequences.
+The purpose of this threshold is to create a `RandomMgr` which will handle `RandomInstance` to generate thread safe and determinitic random sequences.
 
 ### Step 0
 
-Let's start simple (and voluntary wrong). Create a `RandomMgr` in the same way we used to do it (and it to the Globals class...) such as
+Let's start simple (and voluntary wrong). Create a `RandomMgr` in the same way we used to do it (add it to the Globals class...) such as
 ```cpp
 class RandomMgr
 {
@@ -43,19 +43,19 @@ private:
 };
 ```
 
-Here a few infornation that might help you implementing this class:
+Here are some tips that might help you implement this class:
 - Take a look at [cpp reference](https://en.cppreference.com/w/cpp/numeric/random.html) (or any other documentation) to help you implementing the `RandXXX` function.
 - Have a look at `std::random_device`
 
 ### Step 1
 
 Integrate your manager in a debug window to test the different behaviours:
-- Generate a random seed (should change any time you need it and the sequence must be different each time you restart your program).
-- Test `RandXXX` functions. Those functions depend on the Seed you used. A same seed must always produces the same sequence.
+- Generate a random seed (should change every time you need it and the sequence must be different each time you restart your program).
+- Test `RandXXX` functions. Those functions depend on the Seed you used. The same seed must always produces the same sequence.
 
 ### Step 2
 
-We now have a manager that can be used from anywhere in our game at any time, which might be a good problem if we want our system to be determinitic. What if I need a certain seed for an generation algotithm and another one for the AI of our enemies? What if we use multi thread (we will see that later) and because of that, we lose control over the instruction order... To do so, we have to isolate each random process into different `RandomInstance`.
+We now have a manager that can be used from anywhere in our game at any time, which might be a good problem if we want our system to be determinitic. What if I need a certain seed for a generation algotithm and another one for the AI of our enemies? What if we use multi thread (we will see that later) and because of that, we lose control over the instruction order... To do so, we have to isolate each random process into different `RandomInstance`.
 
 Create a `RandomInstance` that will contain : 
 ```cpp
@@ -96,7 +96,7 @@ public:
 };
 ```
 
-Use the right container to store your instances and limite the number of allocation you need (to be clear, you should not need to allocate anything here).
+Use the right container to store your instances and limit the number of allocation you need (to be clear, you should not need to allocate anything here).
 
 Finally, modify your debug window to make it work and put in evidence the instance system.
 
@@ -105,9 +105,9 @@ Finally, modify your debug window to make it work and put in evidence the instan
 
 The purpose of this threshold is to start simple and to implement another entry level algorithm : The drunkard walk.
 
-The Drunkard walk algorithm is very straight forward. It consists of moving random walkers across a grid, marked each cell they walked on and chosse a random direction for each step.
+The Drunkard walk algorithm is very straight forward. It consists of moving random walkers across a grid, marking each cell they walked on and choose a random direction for each step.
 1. Pick a random cell on the grid
-2. Put a walker on this cell. Your walker must walk n steps and for each step, his direction is chosen randomly. Mark each cell he has walked on.
+2. Put a walker on this cell. Your walker must walk n steps and for each step, its direction is chosen randomly. Mark each cell he has walked on.
 3. Pick a cell that has been marked and redo the same thing with another walker
 
 ### Step 0
@@ -138,24 +138,24 @@ Use those default values to test your generation:
 - SixeY = 256
 - Iteration = 5
 - Distance = 25
-- SpawnNuber = 1
+- SpawnNumber = 1
 
 ### Step 1
 
-As we made for others threshold, integrate the Drunkard Walk generation system into a ImGui window, so we can create multiple generations ith different parameters...
+As we did for other threshold, integrate the Drunkard Walk generation system into a ImGui window, so we can create multiple generations with different parameters...
 
 ### Step 2
 
 Implement the `Generate` and the `GenerateTexture` based on the algorithm described above. Here is a a small description of the attribute you need to use:
 - SizeX, SizeY : size of the grid/image
-- Iteration : number of walker that must be spwaned
+- Iteration : number of walkers that must be spaawned
 - Distance : number of step that a single walker must do
 
 About the `GenerateTexture`, do something simple by using a black and white coloration.
 
 ### Step 3
 
-At this stage, your algorithm should create a big continuous mass. It might be intereting to create multiple mass across the grid. Use the SpawnNumber attribute to run the same algorithm on the same map at another spawn point (which has never been walked on).
+At this stage, your algorithm should create a big continuous mass. It might be interreting to create multiple mass across the grid. Use the SpawnNumber attribute to run the same algorithm on the same map at another spawn point (which has never been walked on).
 
 ### Going further
 
@@ -163,9 +163,9 @@ Add constraints such as cell that cannot be crossed for instance.
 
 ## Threshold 3
 
-The purpose of this threshold is to implement a Cellular Automata algorithm to generate terrains or cave.
+The purpose of this threshold is to implement a Cellular Automata algorithm to generate terrains or caves.
 
-> A cellular automaton consists of a regular grid of cells, each in one of a finite number of states, such as on and off. The evolution of the cell's state depends on a specific ruleset
+> A cellular automaton consists of a regular grid of cells, each in one of a finite number of states, such as on and off. The evolution of the cell's state depends on a specific rule set.
 
 The most famous Cellular Automaton is the [Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life).
 
@@ -189,7 +189,7 @@ private:
     unsigned SizeX;
     unsigned SizeY;
     double SpawnPercent;
-    unsigned NeightborThreshold;
+    unsigned NeighborThreshold;
     unsigned Iteration;
 };
 ```
@@ -198,19 +198,19 @@ Use those default values to test your generation:
 - SixeX = 256
 - SixeY = 256
 - SpawnPercent = 0.6
-- NeightborThreshold = 5
+- NeighborThreshold = 5
 - Iteration = 5
 
 ### Step 1
 
-As we made for others threshold, integrate the Drunkard Walk generation system into a ImGui window, so we can create multiple generations ith different parameters...
+As we made for others threshold, integrate the Cellular Automata generation system into a ImGui window, so we can create multiple generations ith different parameters...
 
 ### Step 2
 
 Here are the ruleset that will defined our `CellularAutomata`:
-- A cell cannot die. If it was set to on at some point in the process, it will survive no matter whata
+- A cell cannot die. If it was set to on at some point in the process, it will survive no matter what.
 - Borders count as a living cell
-- If a cell is surronded by at least *NeightborThreshold* living cells (8 adjacent cells), this cell will turn living as well
+- If a cell is surrounded by at least *NeightborThreshold* living cells (8 adjacent cells), this cell will turn living as well
 
 Start to initialize your grid by setting all cell to living/dead according to the `SpawnPercent` attribute. Then, run `Iteration` loops following the ruleset above to propagate the living state.
 
@@ -257,17 +257,17 @@ Use those default values to test your generation:
 
 ### Step 1
 
-As we made for others threshold, integrate the Perlin generation system into a ImGui window, so we can create multiple generations ith different parameters...
+As we made for others threshold, integrate the Perlin generation system into a ImGui window, so we can create multiple generations with different parameters...
 
 ### Step 2
 
-It might be a good idea to implement the `GenerateTexture` function at this stage, because it will help you a lot debugging your progam. 
+It might be a good idea to implement the `GenerateTexture` function at this stage, because it will help you a lot debugging your program. 
 
 Each cell of your image will have a float value between -1 and 1. So, for each pixel, make a linear distribution between -1 (black) and 1 (white).
 
 ### Step 3
 
-The first thing we need to do generate a Perlin noise is to create a grid over our final image.
+The first thing we need to do to generate a Perlin noise is to create a grid over our final image.
 - The final image's size will be **SizeX** and **SizeY**
 - Each cell is a square of length **CellSize**
 
@@ -281,7 +281,7 @@ For each intersection, so for each point of the grid, we will generate a random 
 
 **During this step, lots of type conversion (implicit and explicit). There are mandatory so, you must know how they work and understand them. Otherwise, it might be complicated**
 
-Here is the step where the magic happen. The first thing you need to do is to iterate over each pixel and get the "Perlin" value for each pixel by using a function like
+Here is the step where the magic happens. The first thing you need to do is to iterate over each pixel and get the "Perlin" value for each pixel by using a function like
 ```cpp
 float GetPerlinValue(float x, float y);
 ```
@@ -293,7 +293,7 @@ Let's use a random point as an example.
 
 ![img](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZgfh71kJJci3k2f_0EofiwmblnIDpd-81Uw&s)
 
-For a given point, we will find the 4 corners that surronded this point and compute the 4 dot products between the vector formed by this point and a corner and the vector that we have generated earlier. Finally, we are going to interpolate those 4 values based on the proximity on the point with the corner. This interpolation will give us the Perlin value. To Summarize (and give more context) : 
+For a given point, we will find the 4 corners that surrounded this point and compute the 4 dot products between the vector formed by this point and a corner and the vector that we have generated earlier. Finally, we are going to interpolate those 4 values based on the proximity on the point with the corner. This interpolation will give us the Perlin value. To summarize (and give more context) : 
 1. Compute the dot product with the top left corner. This value will be called nx0.
 2. Compute the dot product with the top right corner. This value will be called nx1.
 3. Compute the interpolation between those two dot products based on the x axis. This value will be called ix0.
@@ -325,11 +325,11 @@ float Interpolate(float a0, float a1, float w) const
 }
 ```
 
-By implementing the algorithm detailled above, you should have a very "blurry" Perlin noise.
+By implementing the algorithm detailed above, you should have a very "blurry" Perlin noise.
 
 ### Step 5
 
-To remove that blurry, it is now time to use the **Octaves** parameter which represent the number of point that which be taken into account to get the final Perlin Value. During Step 3, you took a single point (x, y) to compute the Perlin Value, so **Octaves** = 1. Two others parameters will also appear by using **Octaves** :
+To remove that blur, it is now time to use the **Octaves** parameter which represents the number of point that which be taken into account to get the final Perlin Value. During Step 3, you took a single point (x, y) to compute the Perlin Value, so **Octaves** = 1. Two others parameters will also appear by using **Octaves** :
 - *frequency* : multiplicative value that modifies the base position (x, y) after each octave. In step 3, frequency = 1.
 - *amplitude* : multiplicative value that modifies the Perlin value got with a given position. In Step 3, amplitude = 1.
 
@@ -337,8 +337,8 @@ The final Perlin value is the sum of each individual Perlin Value * amplitude :
 PerlinValue = PerlinValue(x * freq1, y * freq1) * amp1 + PerlinValue(x * freq2, y * freq2) * amp2 + PerlinValue(x * freq3, y * freq3) * amp3 + ...
 
 In our implementation:
-- frequency = 1 and frequency *= 2 each octaves
-- amplitude = 1 and amplitude /= 2 each octaves
+- frequency = 1 and frequency *= 2 each octave
+- amplitude = 1 and amplitude /= 2 each octave
 
 ### Step 6
 
@@ -356,9 +356,9 @@ The purpose here is, by changing the rendering, generate a terrain map based on 
 
 ## Threshold 5
 
-The purpose of this threshold is to implement Wave Function Collapse algorithm to generate procedural textures, tileset, map...
+The purpose of this threshold is to implement Wave Function Collapse algorithm to generate procedural textures, tileset, maps...
 
-The WFC (Wave Function Collapse) is a rules driven algorithm. A set of elements to be placed (let's say tile for example) is given to the algorithm and a set of rules about how those elements interact with each others (A can be placed on the right of B but cannot be placed on the left of C). A grid is created and each cell can contain every element previously filled. The cell with the less **entropy** (the less number of possibilities) is **observed** (determined) randomly. This observation is **propagated** to the adjacent cells (because the next cell is determined and based on the ruleset previously filled, some possibilities might be lost). If possibilities have been lost that means this change mist be **propagated** to the next cells (like a wave)... Once the propagation is done, a new iteration is run (lowest entropy, observation, propagation) until an error occured (an impossible solution) or a stable solution (every cell has only one possibility).
+The WFC (Wave Function Collapse) is a rules driven algorithm. A set of elements to be placed (let's say tile for example) is given to the algorithm and a set of rules about how those elements interact with each other (A can be placed on the right of B but cannot be placed on the left of C). A grid is created and each cell can contain every element previously filled. The cell with the least **entropy** (the less number of possibilities) is **observed** (determined) randomly. This observation is **propagated** to the adjacent cells (because the next cell is determined and based on the ruleset previously filled, some possibilities might be lost). If possibilities have been lost that means this change must be **propagated** to the next cells (like a wave)... Once the propagation is done, a new iteration is run (lowest entropy, observation, propagation) until an error occurred (an impossible solution) or a stable solution (every cell has only one possibility).
 
 Here is a teaser : https://www.youtube.com/watch?v=DOQTr2Xmlz0
 
@@ -415,24 +415,24 @@ and the following rules:
 - "mountain" and "snow" can be placed next to each others in all directions
 
 To do so:
-1. Determine which way you are going to identify a specific pattern/tile for the rest of you progam. Create a new type that will be used in this function
+1. Determine which way you are going to identify a specific pattern/tile for the rest of your program. Create a new type that will be used in this function
 ```cpp
 using WaveFunctionCollapseId = ...;
 ```
 
 2. Add a function to register a new pattern. Here is an example of signature : 
 ```cpp
-WaveFunctionCollapseId AddnewPattern(const std::string& name, const sf::Color& color);
+WaveFunctionCollapseId AddNewPattern(const std::string& name, const sf::Color& color);
 ```
 
 You will need a container to store all data for a specific pattern. Choose it wisely
 
 3. Add a function to add a new rule between two patterns. Here is an example of signature : 
 ```cpp
-bool AddnewRule(const WaveFunctionCollapseId& patternA, const WaveFunctionCollapseId& patternB, Direction direction);
+bool AddNewRule(const WaveFunctionCollapseId& patternA, const WaveFunctionCollapseId& patternB, Direction direction);
 ```
 
-It might be a good idea to handle symmetry at this state (which which reduce the number of rule that must be prompted). You can also handle the reflect aspect (rule between A and B is the same for B and A).
+It might be a good idea to handle symmetry at this state (which reduces the number of rule that must be prompted). You can also handle the reflect aspect (rule between A and B is the same for B and A).
 I recommend you to have nested containers here (or nested structures) to handle the rule. One for the pattern, one for the direction and finally one for the rule.
 
 ### Step 3
@@ -466,7 +466,7 @@ There are multiple way to do that step:
 
 Let's finish with the complex part : Propagation
 
-Once a cell is obsvered, you have to update the adjacent cells because based on the ruleset, some combinaisons might not be possibile anymore. In all directions, try to reduce the number of possibilities. If you succeed and reduce this number, this will have some consequences on this adjacent cells. So, you have to propagate the wave
+Once a cell is observed, you have to update the adjacent cells because based on the ruleset, some combinations might not be possible anymore. In all directions, try to reduce the number of possibilities. If you succeed and reduce this number, this will have some consequences on this adjacent cells. So, you have to propagate the wave
 
 ### Step 7
 
@@ -477,11 +477,11 @@ to implement the `GenerateTexture` function. For each cell on our grid, color th
 
 We have created a WFC algorithm that is based on static rules which are described directly in the executable. It is now time to switch to a data driven approach. Multiple ways are possible such as providing a file containing the ruleset but we will move another approach.
 
-The purpose of this threshold is to implement an algorithn to determine tile to use and rules to follow based on a set of images.
+The purpose of this threshold is to implement an algorithm to determine tile to use and rules to follow based on a set of images.
 
 ### Step 0
 
-To make it simple and focus on the interestring part, let's add others functions to our `WaveFcuntionCollapse` class and modify it to handle thoses changes.
+To make it simple and focus on the interesting part, let's add others functions to our `WaveFcuntionCollapse` class and modify it to handle thoses changes.
 
 ```cpp
 bool LoadImage(unsigned patternSize, const std::filesystem::path& imgPath);
@@ -511,7 +511,7 @@ Store all unique patterns with their frequency (the number of time a pattern is 
 - the symmetry on a `Pattern`
 
 For both those case, be carefull with the mathematics you used for rotating or reflecting a `Pattern`. It might be a good idea to :
-- Use very simple image at first (that you have creating yourself)
+- Use very simple image at first (that you have created yourself)
 - Create a simple debug to visualize your work
 
 You can find lots of image used for WFC algorithm [here](https://github.com/mxgmn/WaveFunctionCollapse).
@@ -534,7 +534,7 @@ Modify the `GenerateTexture` function to display each pattern instead of just on
 
 ## Threshold 7
 
-We have a seen lots of algorithms to generate terrains, map... But the generation becomes nore powerful if we combine different algorithms. For instance
+We have seen lots of algorithms to generate terrains, maps... But the generation becomes more powerful if we combine different algorithms. For instance
 - Use the `CellularAutomata` to draw the shape of a cave and a `Perlin noise` to determine altitude variation.
 - Use a `Perlin noise` to determine the temperature of a terrain and then, use a `WFC` to draw the world. Or the reversal, the `WFC` determines biomes and a `Perlin noise` complexifies the generation. 
 - ...
