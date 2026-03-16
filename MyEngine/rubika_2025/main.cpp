@@ -50,6 +50,8 @@ int main()
         //ImGui::ShowDemoWindow();
         Logger::DrawLogger();
 
+        Sleep(1000);
+
         PROFILER_EVENT_END();
 
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
