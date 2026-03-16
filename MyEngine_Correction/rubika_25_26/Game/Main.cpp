@@ -114,6 +114,7 @@ int main()
             PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Update");
             {
 #ifdef _USE_IMGUI
+                //Sleep(2000);
                 ImGui::SFML::Update(window, imGuiTime);
 #endif
 
@@ -124,6 +125,7 @@ int main()
             PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
             {
                 PROFILER_EVENT_BEGIN(PROFILER_COLOR_BROWN, "Debug Draw");
+                //Sleep(2000);
                 gData.DebugMgr->Draw();
                 PROFILER_EVENT_END();
 

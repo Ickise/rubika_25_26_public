@@ -264,6 +264,7 @@
     <ClCompile Include="Engine\Render\Drawable\Sprite\Sprite.cpp" />
     <ClCompile Include="Engine\Render\Drawable\StaticShape\StaticRectangle.cpp" />
     <ClCompile Include="Engine\Render\Ressource\TextureMgr.cpp" />
+    <ClCompile Include="Engine\TaskMgr.cpp" />
     <ClCompile Include="Game\Main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +287,7 @@
     <ClInclude Include="Engine\Render\Drawable\Sprite\Sprite.h" />
     <ClInclude Include="Engine\Render\Drawable\StaticShape\StaticRectangle.h" />
     <ClInclude Include="Engine\Render\Ressource\TextureMgr.h" />
+    <ClInclude Include="Engine\TaskMgr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
