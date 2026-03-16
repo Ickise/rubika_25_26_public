@@ -10,6 +10,7 @@ namespace sf
 class Entity;
 
 // This all class is temporary and will be reworked later
+//Test
 class GameMgr
 {
 public:
