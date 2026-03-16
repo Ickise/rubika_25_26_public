@@ -100,6 +100,12 @@
     <Filter Include="Header Files\Engine\Debug">
       <UniqueIdentifier>{1995f755-a1a5-418f-82ba-3a6004bb3c6e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Engine\Random">
+      <UniqueIdentifier>{51535b34-c87a-4317-9d2c-47c6e02c7713}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Engine\Random">
+      <UniqueIdentifier>{e3e1e374-e39b-45db-8f6b-4ac6709f7eb8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Render\Ressource\TextureMgr.cpp">
@@ -159,6 +165,18 @@
     <ClCompile Include="Engine\Gameplay\GameMgr.cpp">
       <Filter>Source Files\Engine\Gameplay</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Random\RandomMgr.cpp">
+      <Filter>Source Files\Engine\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Random\Perlin.cpp">
+      <Filter>Source Files\Engine\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Random\DrunkardWalk.cpp">
+      <Filter>Source Files\Engine\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Random\CellularAutomata.cpp">
+      <Filter>Source Files\Engine\Random</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Render\Ressource\TextureMgr.h">
@@ -205,6 +223,18 @@
     </ClInclude>
     <ClInclude Include="Engine\Gameplay\GameMgr.h">
       <Filter>Header Files\Engine\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Random\RandomMgr.h">
+      <Filter>Header Files\Engine\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Random\Perlin.h">
+      <Filter>Header Files\Engine\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Random\DrunkardWalk.h">
+      <Filter>Header Files\Engine\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Random\CellularAutomata.h">
+      <Filter>Header Files\Engine\Random</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

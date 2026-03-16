@@ -256,6 +256,10 @@
     <ClCompile Include="Engine\Gameplay\Entity\Entity.cpp" />
     <ClCompile Include="Engine\Gameplay\GameMgr.cpp" />
     <ClCompile Include="Engine\Globals.cpp" />
+    <ClCompile Include="Engine\Random\CellularAutomata.cpp" />
+    <ClCompile Include="Engine\Random\DrunkardWalk.cpp" />
+    <ClCompile Include="Engine\Random\Perlin.cpp" />
+    <ClCompile Include="Engine\Random\RandomMgr.cpp" />
     <ClCompile Include="Engine\Render\Drawable\IDrawable.cpp" />
     <ClCompile Include="Engine\Render\Drawable\Sprite\Sprite.cpp" />
     <ClCompile Include="Engine\Render\Drawable\StaticShape\StaticRectangle.cpp" />
@@ -274,6 +278,10 @@
     <ClInclude Include="Engine\Gameplay\GameMgr.h" />
     <ClInclude Include="Engine\Globals.h" />
     <ClInclude Include="Engine\Profiler.h" />
+    <ClInclude Include="Engine\Random\CellularAutomata.h" />
+    <ClInclude Include="Engine\Random\DrunkardWalk.h" />
+    <ClInclude Include="Engine\Random\Perlin.h" />
+    <ClInclude Include="Engine\Random\RandomMgr.h" />
     <ClInclude Include="Engine\Render\Drawable\IDrawable.h" />
     <ClInclude Include="Engine\Render\Drawable\Sprite\Sprite.h" />
     <ClInclude Include="Engine\Render\Drawable\StaticShape\StaticRectangle.h" />

@@ -44,7 +44,7 @@ int main()
 {
     gData.Init();
 
-    sf::RenderWindow window(sf::VideoMode({ 1280, 720 }), "MyIsaac");
+    sf::RenderWindow window(sf::VideoMode({ 1280, 720 }), "MyEngine - Rubika 2025 2026");
     
 #ifdef _USE_IMGUI
     if (!ImGui::SFML::Init(window))
@@ -85,7 +85,7 @@ int main()
     sf::Clock clock;
     clock.restart();
 
-    while (window.isOpen())
+    while (window.isOpen() && !gData.ExipApp)
     {
         PROFILER_EVENT_BEGIN(PROFILER_COLOR_BLACK, "Frame %llu", gData.FrameCount);
         {
@@ -101,6 +101,7 @@ int main()
                     if (event->is<sf::Event::Closed>() || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
                     {
                         window.close();
+                        gData.ExipApp = true;
                     }
 
 #ifdef _USE_IMGUI
@@ -147,6 +148,8 @@ int main()
         PROFILER_EVENT_END();
         ++gData.FrameCount;
     }
+
+    gData.ExipApp = true;
 
     gData.Shut();
     gData.Destroy();

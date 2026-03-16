@@ -23,6 +23,9 @@ public:
 	TextureMgr* TextureMgr;
 	DebugMgr* DebugMgr;
 	Logger* Console;
+	RandomMgr* RandomMgr;
+
+	bool ExipApp = false;
 };
 
 extern Globals gData;

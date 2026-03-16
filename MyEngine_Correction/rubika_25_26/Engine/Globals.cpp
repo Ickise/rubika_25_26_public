@@ -4,6 +4,7 @@
 #include <Engine/Render/Ressource/TextureMgr.h>
 #include <Engine/Debug/DebugMgr.h>
 #include <Engine/Console/LogConsole.h>
+#include <Engine/Random/RandomMgr.h>
 
 Globals gData;
 
@@ -13,6 +14,7 @@ Globals::Globals() : FrameCount(0)
 	TextureMgr = new ::TextureMgr();
 	DebugMgr = new ::DebugMgr();
 	Console = new ::Logger();
+	RandomMgr = new ::RandomMgr();
 }
 
 Globals::~Globals()
@@ -26,6 +28,7 @@ void Globals::Init()
 	TextureMgr->Init();
 	//DebugMgr->Init();
 	Console->Init();
+	RandomMgr->Init();
 }
 
 void Globals::Shut()
@@ -34,6 +37,7 @@ void Globals::Shut()
 	TextureMgr->Shut();
 	//DebugMgr->Shut();
 	Console->Shut();
+	RandomMgr->Shut();
 }
 
 void Globals::Destroy()
@@ -49,4 +53,7 @@ void Globals::Destroy()
 
 	delete Console;
 	Console = nullptr;
+
+	delete RandomMgr;
+	RandomMgr = nullptr;
 }
