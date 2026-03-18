@@ -38,6 +38,16 @@ void TaskMgr::RegisterTask(std::function<void()> task, ePhase phase)
 
         workerCondition.notify_one();
     }
+    else if (phase == ePhase::Sync)
+    {
+        {
+            std::lock_guard<std::mutex> lock(SyncQueueMutex);
+            syncQueue.push(task);
+            ++SyncActiveTasks;
+        }
+
+        syncCondition.notify_one();
+    }
     else
     {
         tasks[phase].push_back(task);
@@ -47,6 +57,12 @@ void TaskMgr::RegisterTask(std::function<void()> task, ePhase phase)
 void TaskMgr::StartPhase(ePhase phase)
 {
     CurrentPhase = phase;
+
+    if (phase == ePhase::Sync)
+    {
+        syncCondition.notify_all();
+        return;
+    }
 
     std::vector<std::thread> phaseThreads;
     for (auto& task : tasks[phase])
@@ -67,6 +83,35 @@ void TaskMgr::WaitPhase()
 
 void TaskMgr::SyncThreadUpdate()
 {
+    while (true)
+    {
+        std::function<void()> task;
+
+        {
+            std::unique_lock<std::mutex> lock(SyncQueueMutex);
+
+            syncCondition.wait(lock, [this]
+            {
+                return !syncQueue.empty() || !running;
+            });
+
+            if (!running && syncQueue.empty())
+                return;
+
+            if (CurrentPhase == ePhase::Sync && !syncQueue.empty())
+            {
+                task = syncQueue.front();
+                syncQueue.pop();
+            }
+            else
+            {
+                continue;
+            }
+        }
+
+        task();
+        --SyncActiveTasks;
+    }
 }
 
 void TaskMgr::WorkerThreadUpdate()
