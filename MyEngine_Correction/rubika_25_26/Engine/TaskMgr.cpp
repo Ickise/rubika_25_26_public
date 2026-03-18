@@ -31,6 +31,7 @@ void TaskMgr::RegisterTask(std::function<void()> task, ePhase phase)
         {
             std::lock_guard<std::mutex> lock(WorkerQueueMutex);
             workerQueue.push(task);
+            ++WorkerActiveTasks;
         }
 
         workerCondition.notify_one();
@@ -73,10 +74,10 @@ void TaskMgr::WorkerThreadUpdate()
 
             workerCondition.wait(lock, [this]
             {
-                return !workerQueue.empty() || !running;
+                return WorkerActiveTasks > 0 || !running;
             });
 
-            if (!running && workerQueue.empty())
+            if (!running)
                 return;
 
             task = workerQueue.front();
@@ -84,5 +85,7 @@ void TaskMgr::WorkerThreadUpdate()
         }
 
         task();
+
+        --WorkerActiveTasks;
     }
 }

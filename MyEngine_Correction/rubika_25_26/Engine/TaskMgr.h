@@ -35,6 +35,7 @@ private:
     std::queue<std::function<void()>> workerQueue;
     std::mutex WorkerQueueMutex;
     std::condition_variable workerCondition;
+    std::atomic<int> WorkerActiveTasks = 0;
 
     const int WorkerCount = 4;
     bool running = true;
