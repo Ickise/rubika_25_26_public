@@ -40,7 +40,8 @@ private:
 
     std::condition_variable workerCondition;
     std::condition_variable syncCondition;
-
+    std::condition_variable syncWaitCondition;
+    
     std::atomic<int> WorkerActiveTasks = 0;
     std::atomic<int> SyncActiveTasks = 0;
 

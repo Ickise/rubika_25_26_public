@@ -18,7 +18,7 @@ void TaskMgr::Shut()
 
     workerCondition.notify_all();
     syncCondition.notify_all();
-    
+
     for (auto& t : threads)
     {
         if (t.joinable())
@@ -79,6 +79,12 @@ void TaskMgr::StartPhase(ePhase phase)
 
 void TaskMgr::WaitPhase()
 {
+    std::unique_lock<std::mutex> lock(SyncQueueMutex);
+
+    syncWaitCondition.wait(lock, [this]()
+    {
+        return SyncActiveTasks == 0;
+    });
 }
 
 void TaskMgr::SyncThreadUpdate()
@@ -110,7 +116,10 @@ void TaskMgr::SyncThreadUpdate()
         }
 
         task();
+
         --SyncActiveTasks;
+
+        syncWaitCondition.notify_one();
     }
 }
 
