@@ -3,9 +3,10 @@
 void TaskMgr::Init()
 {
     for (int i = 0; i < WorkerCount; i++)
-    {
         threads.emplace_back(&TaskMgr::WorkerThreadUpdate, this);
-    }
+
+    for (int i = 0; i < SyncCount; i++)
+        threads.emplace_back(&TaskMgr::SyncThreadUpdate, this);
 }
 
 void TaskMgr::Shut()
@@ -16,7 +17,8 @@ void TaskMgr::Shut()
     }
 
     workerCondition.notify_all();
-
+    syncCondition.notify_all();
+    
     for (auto& t : threads)
     {
         if (t.joinable())
@@ -60,6 +62,10 @@ void TaskMgr::StartPhase(ePhase phase)
 }
 
 void TaskMgr::WaitPhase()
+{
+}
+
+void TaskMgr::SyncThreadUpdate()
 {
 }
 
