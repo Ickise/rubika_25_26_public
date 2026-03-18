@@ -11,7 +11,7 @@ void TaskMgr::Init()
 void TaskMgr::Shut()
 {
     {
-        std::unique_lock<std::mutex> guard(WorkerQueueMutex);
+        std::unique_lock<std::mutex> lock(WorkerQueueMutex);
         running = false;
     }
 
