@@ -39,6 +39,34 @@ Entity* CreateEntity()
     return e;
 }
 
+void PopulateUpdate()
+{
+    for (int i = 0; i < 10; ++i)
+    {
+        gData.TaskMgr->RegisterTask([i]()
+            {
+                PROFILER_EVENT_BEGIN(PROFILER_COLOR_DARK_BLUE, "Update %d", i);
+                Sleep(50);
+                PROFILER_EVENT_END();
+            },
+            TaskMgr::ePhase::Sync);
+    }
+}
+
+void PopulateDraw()
+{
+    for (int i = 0; i < 20; ++i)
+    {
+        gData.TaskMgr->RegisterTask([i]()
+            {
+                PROFILER_EVENT_BEGIN(PROFILER_COLOR_DARK_BLUE, "Draw %d", i);
+                Sleep(50);
+                PROFILER_EVENT_END();
+            },
+            TaskMgr::ePhase::Sync);
+    }
+}
+
 int main()
 {
     gData.Init();
@@ -88,7 +116,7 @@ int main()
         {
             PROFILER_EVENT_BEGIN(PROFILER_COLOR_DARK_BLUE, "Task %d", i);
 
-            Sleep(2000);
+            Sleep(50);
 
             PROFILER_EVENT_END();
         },
@@ -105,7 +133,14 @@ int main()
             int deltaTimeMS = clock.getElapsedTime().asMilliseconds();
             float fDeltaTimeS = (float)deltaTimeMS / 1000.f;
             sf::Time imGuiTime = clock.restart();
-
+            
+            // Populate tasks
+            PopulateUpdate();
+            PopulateDraw();
+            
+            gData.TaskMgr->StartPhase(TaskMgr::ePhase::Sync);
+            gData.TaskMgr->WaitPhase(); 
+            
             PROFILER_EVENT_BEGIN(PROFILER_COLOR_BLUE, "Event & Input");
             {
                 while (const std::optional event = window.pollEvent())
@@ -127,10 +162,8 @@ int main()
             PROFILER_EVENT_BEGIN(PROFILER_COLOR_RED, "Update");
             {
 #ifdef _USE_IMGUI
-                //Sleep(2000);
                 ImGui::SFML::Update(window, imGuiTime);
 #endif
-
                 gData.GameMgr->Update(fDeltaTimeS);
             }
             PROFILER_EVENT_END();
@@ -138,12 +171,15 @@ int main()
             PROFILER_EVENT_BEGIN(PROFILER_COLOR_GREEN, "Draw");
             {
                 PROFILER_EVENT_BEGIN(PROFILER_COLOR_BROWN, "Debug Draw");
-                //Sleep(2000);
                 gData.DebugMgr->Draw();
                 PROFILER_EVENT_END();
 
                 window.clear();
 
+                // Start Draw phase
+                gData.TaskMgr->StartPhase(TaskMgr::ePhase::Sync);
+                gData.TaskMgr->WaitPhase();
+                
                 PROFILER_EVENT_BEGIN(PROFILER_COLOR_PURPLE, "Game Draw");
                 gData.GameMgr->Draw(window);
                 PROFILER_EVENT_END();
