@@ -1,5 +1,4 @@
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Rect.hpp>
 
 #include <Engine/Render/Ressource/TextureMgr.h>
 #include <Engine/Console/LogConsole.h>
@@ -81,7 +80,21 @@ int main()
     Entity* entity = CreateEntity();
 
     gData.GameMgr->AddEntity(entity);
+    
+    // TEST WORKER TASKS
+    for (int i = 0; i < 100; ++i)
+    {
+        gData.TaskMgr->RegisterTask([i]()
+        {
+            PROFILER_EVENT_BEGIN(PROFILER_COLOR_DARK_BLUE, "Task %d", i);
 
+            Sleep(2000);
+
+            PROFILER_EVENT_END();
+        },
+        TaskMgr::ePhase::Worker);
+    }
+    
     sf::Clock clock;
     clock.restart();
 

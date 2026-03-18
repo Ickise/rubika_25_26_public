@@ -1,4 +1,5 @@
 #pragma once
+#include "TaskMgr.h"
 
 class InputMgr;
 class TextureMgr;
@@ -24,6 +25,7 @@ public:
 	DebugMgr* DebugMgr;
 	Logger* Console;
 	RandomMgr* RandomMgr;
+	TaskMgr* TaskMgr;
 
 	bool ExipApp = false;
 };

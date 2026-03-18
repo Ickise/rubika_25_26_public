@@ -9,7 +9,11 @@
   <component name="ChangeListManager">
     <list default="true" id="413b4f63-27e0-4c7e-81b9-60ba954ef24e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.rubika_25_26/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.rubika_25_26/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_25_26/Engine/Globals.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_25_26/Engine/Globals.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_25_26/Engine/Globals.h" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_25_26/Engine/Globals.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_25_26/Engine/Profiler.h" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_25_26/Engine/Profiler.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rubika_25_26/Engine/TaskMgr.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_25_26/Engine/TaskMgr.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rubika_25_26/Game/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/rubika_25_26/Game/Main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,23 +45,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;C/C++ Project.rubika_25_26.executor&quot;: &quot;Debug&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "C/C++ Project.rubika_25_26.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "git-widget-placeholder": "main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="rubika_25_26" type="CppProject" factoryName="C++ Project">
       <configuration_1 setup="1">
@@ -98,7 +102,7 @@
       <workItem from="1773829166022" duration="16000" />
       <workItem from="1773829197641" duration="6000" />
       <workItem from="1773829235974" duration="11000" />
-      <workItem from="1773829274776" duration="379000" />
+      <workItem from="1773829274776" duration="6775000" />
     </task>
     <servers />
   </component>

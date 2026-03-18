@@ -74,10 +74,10 @@ void TaskMgr::WorkerThreadUpdate()
 
             workerCondition.wait(lock, [this]
             {
-                return WorkerActiveTasks > 0 || !running;
+                return !workerQueue.empty() || !running;
             });
 
-            if (!running)
+            if (!running && workerQueue.empty())
                 return;
 
             task = workerQueue.front();
